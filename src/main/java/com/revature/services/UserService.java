@@ -40,7 +40,7 @@ private UserDAO userDAO = new UserDAOImpl();
 		List<User> users = userDAO.getAllUsers();
 		
 		for(User user : users)
-			if(updatedUser.getId() == user.getId())
+			if(updatedUser.getErs_users_id() == user.getId())
 				return userDAO.updateUser(updatedUser);
 		
 		return null;
