@@ -148,6 +148,18 @@ public class UserDAOImpl implements UserDAO
 		}
 		return u;
 	}
+
+	@Override
+	public User getUserByUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User getUserByUsername(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

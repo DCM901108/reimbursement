@@ -14,7 +14,9 @@ public class LoadViewServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("in LoadViewServlet.doGet()");
+		
+		
+		System.out.println("in sdfsdf LoadViewServlet.doGet()");
 		
 		String nextView = RequestViewHelper.process(request);
 		System.out.println(nextView);
