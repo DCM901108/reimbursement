@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO
 	@Override
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
-		System.out.println("this has been hit");
+		System.out.println("UserDAOImpl.getAllUsers() is green");
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			
 			String sql = "SELECT * FROM ers_users";
@@ -35,6 +35,8 @@ public class UserDAOImpl implements UserDAO
 				temp.setUser_first_name(rs.getString("User_first_name"));
 				temp.setUser_last_name(rs.getString("User_last_name"));
 				temp.setUser_type(rs.getInt("user_role_id"));
+				
+				users.add(temp);
 				
 			}
 			
@@ -76,6 +78,7 @@ public class UserDAOImpl implements UserDAO
 	@Override
 	public User getUserByCredentials(String username, String password) {
 		User u = new User();
+		System.out.println("getUserByCredentials() is green");
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();)
 		{
 			String sql = "SELECT * FROM ers_users WHERE ers_username = ? and ers_password = ?";
@@ -83,7 +86,7 @@ public class UserDAOImpl implements UserDAO
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			
-			ResultSet rs = pstmt.executeQuery(sql);
+			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next())
 			{
@@ -100,7 +103,8 @@ public class UserDAOImpl implements UserDAO
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		System.out.println(u.toString());
+		return u;
 	}
 
 	@Override
@@ -150,16 +154,16 @@ public class UserDAOImpl implements UserDAO
 	}
 
 	@Override
-	public User getUserByUsername() {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserByUsername(String username) {
+		User user =  new User();
+		
+		return user;
 	}
 
 	@Override
-	public User getUserByUsername(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUserByEmailAddress(String emailAddress) {
+		User user = new User();
+		
+		return user;
 	}
-	
-
 }

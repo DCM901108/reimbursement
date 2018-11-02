@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RequestViewHelper {
 	
 	public static String process(HttpServletRequest request) {
+		System.out.println(request);
 		switch(request.getRequestURI()) {
 			case "/reimbursement-app/login.view":
 				return "partials/login.html";

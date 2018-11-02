@@ -7,7 +7,7 @@ import com.revature.dao.UserDAOImpl;
 import com.revature.models.User;
 
 public class UserService {
-private UserDAO userDAO = new UserDAOImpl();
+	UserDAOImpl userDAO = new UserDAOImpl();
 	
 	public List<User> getAllUsers() {
 		return userDAO.getAllUsers();
@@ -22,8 +22,8 @@ private UserDAO userDAO = new UserDAOImpl();
 	}
 	
 	public User addUser(User newUser) {
-		boolean emailAvailable = isEmailAvailable(newUser.getEmailAddress());
-		boolean usernameAvailable = isUsernameAvailable(newUser.getUsername());
+		boolean emailAvailable = isEmailAvailable(newUser.getUser_email());
+		boolean usernameAvailable = isUsernameAvailable(newUser.getUser_email());
 		
 		if(emailAvailable && usernameAvailable) {
 			newUser = userDAO.addUser(newUser);
@@ -40,7 +40,7 @@ private UserDAO userDAO = new UserDAOImpl();
 		List<User> users = userDAO.getAllUsers();
 		
 		for(User user : users)
-			if(updatedUser.getErs_users_id() == user.getId())
+			if(updatedUser.getErs_users_id() == user.getErs_users_id())
 				return userDAO.updateUser(updatedUser);
 		
 		return null;
@@ -70,6 +70,11 @@ private UserDAO userDAO = new UserDAOImpl();
 	}
 	
 	public User loginUser(String username, String password) {
-		return userDAO.getUserByCredentials(username, password);
+		System.out.println("Made it to loginUser");
+		User u = new User();
+		System.out.println(u.toString());
+		u = userDAO.getUserByCredentials(username, password);
+		System.out.println(u.toString());
+		return u;
 	}
 }

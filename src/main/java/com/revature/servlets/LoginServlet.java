@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,19 +14,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.User;
 import com.revature.services.UserService;
 
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	
+
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("in LoginServlet.doPost()");
-		
+		System.out.println("Sanity check 1");
 		UserService userService = new UserService();
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String[] userCredentials = mapper.readValue(request.getInputStream(), String[].class);
 		String username = userCredentials[0];
 		String password = userCredentials[1];
-		
+		System.out.println(username+" "+password);
 		User authUser = userService.loginUser(username, password);
 		
 		// Associate user with this session

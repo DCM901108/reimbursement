@@ -43,6 +43,7 @@ function login(){
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			let user = JSON.parse(xhr.responseText);
+			console.log(user);
 			if (user) {
 				alert('load successful');
 				loadHome();
