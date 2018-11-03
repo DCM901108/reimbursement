@@ -23,14 +23,13 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("in LoginServlet.doPost()");
-		System.out.println("Sanity check 1");
+		
 		UserService userService = new UserService();
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String[] userCredentials = mapper.readValue(request.getInputStream(), String[].class);
 		String username = userCredentials[0];
 		String password = userCredentials[1];
-		System.out.println(username+" "+password);
 		User authUser = userService.loginUser(username, password);
 		
 		// Associate user with this session

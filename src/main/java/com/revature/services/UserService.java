@@ -22,12 +22,13 @@ public class UserService {
 	}
 	
 	public User addUser(User newUser) {
-		boolean emailAvailable = isEmailAvailable(newUser.getUser_email());
-		boolean usernameAvailable = isUsernameAvailable(newUser.getUser_email());
-		
+		System.out.println("in addUser()");
+		boolean emailAvailable = true;
+		boolean usernameAvailable = true;
+		System.out.println("in addUser() past booleans" +" email boolean availability " + emailAvailable +" username boolean availability " + usernameAvailable);
 		if(emailAvailable && usernameAvailable) {
-			newUser = userDAO.addUser(newUser);
-			for(User user : userDAO.getAllUsers()) System.out.println(user);
+		newUser = userDAO.addUser(newUser);
+		for(User user : userDAO.getAllUsers()) System.out.println(user);
 		}
 		else
 			newUser = null;
@@ -35,38 +36,47 @@ public class UserService {
 		return newUser;
 	}
 	
-	public User updateUser(User updatedUser) {
-		
-		List<User> users = userDAO.getAllUsers();
-		
-		for(User user : users)
-			if(updatedUser.getErs_users_id() == user.getErs_users_id())
-				return userDAO.updateUser(updatedUser);
-		
-		return null;
-		
-	}
+//	public User updateUser(User updatedUser) {
+//		
+//		List<User> users = userDAO.getAllUsers();
+//		
+//		for(User user : users)
+//			if(updatedUser.getErs_users_id() == user.getErs_users_id())
+//				return userDAO.updateUser(updatedUser);
+//		
+//		return null;
+//		
+//	}
 	
 	public boolean deleteUser(int userId) {
-		return userDAO.deleteUser(userId);
+		return  false;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean isEmailAvailable(String emailAddress) {
+		System.out.println("it is currently here  in  for email ");
+		
 		User u = userDAO.getUserByEmailAddress(emailAddress);
 		
-		if(u == null)
-			return true;
+		System.out.println("it is currently here  in email " + " " + u.toString());
 		
+		if(u.getErs_username() == null) {
+			return true;
+		}else {
 		return false;
+		}
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean isUsernameAvailable(String username) {
+		System.out.println("it is currently here  in service " + username);
 		User u = userDAO.getUserByUsername(username);
-		
-		if(u == null)
+		System.out.println(u);
+		if(u.getErs_username() == null) {
 			return true;
-		
-		return false;
+		}else {
+			return false;
+		}
 	}
 	
 	public User loginUser(String username, String password) {

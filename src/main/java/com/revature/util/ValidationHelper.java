@@ -18,17 +18,25 @@ public class ValidationHelper {
 			
 			case "/reimbursement-app/username.validate":
 				String username = mapper.readValue(request.getInputStream(), String.class);
-				
-				if (userService.isUsernameAvailable(username))
+				boolean b = userService.isUsernameAvailable(username);
+				System.out.println("ValidationHelper value "+ b);
+				if (b != false)
+				{
 					return username;
-				else return null;
+				}else {
+					return null;
+				}
 				
 			case "/reimbursement-app/email.validate":
 				String emailAddress = mapper.readValue(request.getInputStream(), String.class);
-				
-				if(userService.isEmailAvailable(emailAddress)) 
+				boolean b1 = userService.isEmailAvailable(emailAddress);
+				if(b1 != false) 
+				{
 					return emailAddress;
-				else return null;
+				}else
+				{
+					return null;
+				}
 			default:
 				return null;
 		}

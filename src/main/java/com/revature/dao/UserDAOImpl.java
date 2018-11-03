@@ -108,32 +108,35 @@ public class UserDAOImpl implements UserDAO
 	}
 
 	@Override
-	public User addUser(User newUser) {
+	public User addUser(User newUser) 
+	{
 		User u = new User();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();)
 		{
+			System.out.println("in add user addUser()");
 			conn.setAutoCommit(false);
 			
-			String sql = "INSERT INTO ers_users (ers_users_id, ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) VALUES (?, ?, ?, ?, ?, ?)";
 			String[] values = new String[1];
 			values[0]= "ers_users_id";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql, values);
 			pstmt.setString(1, newUser.getErs_username());
-			pstmt.setString(1, newUser.getErs_password());
-			pstmt.setString(2, newUser.getUser_first_name());
-			pstmt.setString(3, newUser.getUser_last_name());
-			pstmt.setString(4, newUser.getUser_email());
-			pstmt.setInt(5, newUser.getUser_type());
+			pstmt.setString(2, newUser.getErs_password());
+			pstmt.setString(3, newUser.getUser_first_name());
+			pstmt.setString(4, newUser.getUser_last_name());
+			pstmt.setString(5, newUser.getUser_email());
+			pstmt.setInt(6, newUser.getUser_type());
 			
 			int rowsInserted = pstmt.executeUpdate();
 			
-			ResultSet rs = pstmt.executeQuery(sql);
+			ResultSet rs = pstmt.getGeneratedKeys();
 			
 			if(rowsInserted != 0)
 			{
 				while(rs.next()) 
 				{
+					  
 					u.setErs_users_id(rs.getInt(1));
 					conn.commit();
 				}
@@ -144,26 +147,69 @@ public class UserDAOImpl implements UserDAO
 				u.setUser_first_name(newUser.getUser_first_name());
 				u.setUser_last_name(newUser.getUser_last_name());
 				u.setUser_type(newUser.getUser_type());
+				
+				
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(u.toString()+" return addUser() ");
 		return u;
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
-		User user =  new User();
+	public User getUserByUsername(String username) 
+	{
+		User u = new User();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection();)
+		{
+			String sql = "select * from ers_users where ers_username= ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				u.setErs_users_id(rs.getInt("ers_users_id"));
+				u.setErs_username(rs.getString("Ers_username"));
+				u.setErs_password(rs.getString("Ers_password"));
+				u.setUser_email(rs.getString("User_email"));
+				u.setUser_first_name(rs.getString("User_first_name"));
+				u.setUser_last_name(rs.getString("User_last_name"));
+				u.setUser_type(rs.getInt("user_role_id"));
+			}
 		
-		return user;
+		} catch(SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override
 	public User getUserByEmailAddress(String emailAddress) {
-		User user = new User();
+		User u = new User();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection();)
+		{
+			String sql = "select * from ers_users where user_email= ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emailAddress);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				u.setErs_users_id(rs.getInt("ers_users_id"));
+				u.setErs_username(rs.getString("Ers_username"));
+				u.setErs_password(rs.getString("Ers_password"));
+				u.setUser_email(rs.getString("User_email"));
+				u.setUser_first_name(rs.getString("User_first_name"));
+				u.setUser_last_name(rs.getString("User_last_name"));
+				u.setUser_type(rs.getInt("user_role_id"));
+			}
 		
-		return user;
+		} catch(SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return u;
 	}
 }

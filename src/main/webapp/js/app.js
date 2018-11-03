@@ -194,7 +194,7 @@ function validateUsername() {
 }
 
 function validateEmail() {
-	console.log('in validateEmail()');
+	console.log('in validateEmail()' + 'this is the value' + $('#email').val());
 	
 	let email = $('#email').val();
 	
@@ -226,18 +226,27 @@ function register() {
 	console.log('in register()');
 	
 	$('#register').attr('disabled', true);
-	
+	let key;
+	if($('#manager').val()=="key")
+	{
+		key = 2;
+	}else
+	{
+		key = 1;
+	}
+	console.log(key+" this is the key");
 	let user = {
-			id: 0,
-			firstName: $('#fn').val(),
-			lastName: $('#ln').val(),
-			emailAddress: $('#email').val(),
-			username: $('#reg-username').val(),
-			password: $('#reg-password').val()
+			ers_users_id: 7,
+			user_first_name: $('#fn').val(),
+			user_last_name: $('#ln').val(),
+			user_email: $('#email').val(),
+			ers_username: $('#reg-username').val(),
+			ers_password: $('#reg-password').val(),
+			user_type: key
 	}
 	
 	let userJSON = JSON.stringify(user);
-	
+	console.log(userJSON);
 	let xhr = new XMLHttpRequest();
 	
 	xhr.open('POST', 'register', true);
