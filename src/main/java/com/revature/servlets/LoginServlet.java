@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 		String[] userCredentials = mapper.readValue(request.getInputStream(), String[].class);
 		String username = userCredentials[0];
 		String password = userCredentials[1];
+		
 		User authUser = userService.loginUser(username, password);
 		
 		// Associate user with this session
