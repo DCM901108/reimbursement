@@ -1,7 +1,7 @@
 <div class="container" id="home-container">
 	<div id="home-page">
 		<h1>Home</h1><br>
-		<div id="user-info">
+		<div id="user-info" hidden="true">
 			<b>User ID:</b> <span id="user_id"></span><br><br>
 			<b>First name:</b> <span id="user_fn"></span><br><br>
 			<b>Last name:</b> <span id="user_ln"></span><br><br>
@@ -13,17 +13,63 @@
 		
 		<hr>
 		
-		<table class="table" id="userAccounts-table">
+		<table class="table" id="employee-view">
 			
 			<thead>
 				<tr>
-					<th>Account Id</th>
-					<th>Account Type</th>
-					<th>Balance</th>
+					<th scope="col">#</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Author</th>
+					<th scope="col">Status</th>
+					<th scope="col">Type</th>
+				</tr>
+
+			</thead>
+			
+			<tbody id="employee-body">
+				<tr>
+				<th id="creation"></th>
+				<td><input type="text" id="amount" placeholder="Ticket amount"></td>
+				<td><input type="text" id="description" placeholder="Description"></td>
+				<td>
+					<select id="type">
+						<option value="1">Lodging</option>
+						<option value="2">Travel</option>
+						<option value="3">Food</option>
+						<option value="4">Other</option>
+					</select>
+				</td>
+				<td><button type="button" class="btn btn-primary" onclick="createTicket()">Create</button></td>
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		<table class="table" id="manager-view">
+			
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Id</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Author</th>
+					<th scope="col">Status</th>
+					<th scope="col">Type</th>
 				</tr>
 			</thead>
 			
-			<tbody></tbody>
+			<tbody id='manager-body'>
+				<tr>
+					<th scope="row">1</th>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><button type="button" class="btn btn-success">Approve</button></td> 
+					<td><button type="button" class="btn btn-danger">Deny</button></td>
+				</tr>
+			</tbody>
 			
 		</table>
 	</div>

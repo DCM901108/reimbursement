@@ -26,8 +26,12 @@ public class RegistrationServlet extends HttpServlet
 		ObjectMapper mapper = new ObjectMapper();
 		
 		User newUser = mapper.readValue(request.getInputStream(), User.class);
+		System.out.println("Got to RegistrationServlet");
 		System.out.println(newUser);
+		
+		// If no match is found, create new User
 		newUser = userService.addUser(newUser);
+		// else return some error message or code
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("application/json");

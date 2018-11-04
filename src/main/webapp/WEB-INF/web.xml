@@ -15,4 +15,14 @@
   	<url-pattern>*.view</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>ReimbursementServlet</servlet-name>
+  	<servlet-class>com.revature.servlets.ReimbursementServlet</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+  	<servlet-name>ReimbursementServlet</servlet-name>
+  	<url-pattern>/ticket</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

@@ -90,7 +90,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 			sqle.printStackTrace();
 		}
 		
-		return null;
+		return tickets;
 	}
 
 	@Override // This will be useless without the corresponding SQL procedure
@@ -149,10 +149,71 @@ public class ReimbDAOImpl implements ReimbDAO {
 			
 			conn.commit();
 			
+			return true;
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
 		
 		return false;
+	}
+
+	@Override
+	public Reimbursement addReimbursement(Reimbursement reimb) {
+		
+		Reimbursement newReimb = new Reimbursement();
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
+			
+			String sql = "INSERT INTO ers_reimbursement (reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id) "
+					+ "VALUES (reimb_id, ?, reimb_submitted, reimb_resolved, ?, reimb_receipt, ?, reimb_resolver, reimb_status_id, ?);";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			// Sets amount, description, author, and type based on the parameter object.
+			pstmt.setDouble(1, reimb.getAmount());
+			pstmt.setString(2, reimb.getDescription());
+			pstmt.setInt(3, reimb.getAuthor());
+			pstmt.setInt(4, reimb.getType());
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				newReimb.getAmount();
+				newReimb.getDescription();
+				newReimb.getAuthor(); 		// This is where the enums come in
+				newReimb.getType();	
+				
+			}
+			
+			conn.commit();
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return newReimb;
+	}
+
+	@Override
+	public Reimbursement getReimbursementById(int id) {
+		
+		Reimbursement newReimb = new Reimbursement();
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
+			String sql = "SELECT * from ers_reimbursement WHERE reimb_id = ?";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				newReimb = (Reimbursement) rs;
+			}
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return newReimb;
 	}
 }
