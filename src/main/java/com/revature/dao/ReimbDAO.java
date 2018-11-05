@@ -11,4 +11,5 @@ public interface ReimbDAO {
 	ArrayList<Reimbursement> getReimbursementsByStatus(int status);
 	boolean updateReimbursement(int id);
 	boolean deleteReimbursement(int id);
+	Reimbursement addReimbursement(Reimbursement reimb);
 }
