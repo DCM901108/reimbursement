@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO
 	@Override
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
-		System.out.println("UserDAOImpl.getAllUsers() is green");
+		//System.out.println("UserDAOImpl.getAllUsers() is green");
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			
 			String sql = "SELECT * FROM ers_users";
@@ -78,7 +78,7 @@ public class UserDAOImpl implements UserDAO
 	@Override
 	public User getUserByCredentials(String username, String password) {
 		User u = new User();
-		System.out.println("getUserByCredentials() is green");
+		//System.out.println("getUserByCredentials() is green");
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();)
 		{
 			String sql = "SELECT * FROM ers_users WHERE ers_username = ? and ers_password = ?";

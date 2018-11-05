@@ -16,10 +16,10 @@ public class LoadViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		System.out.println("inh trshx LoadViewServlet.doGet()");
+		//System.out.println("inh trshx LoadViewServlet.doGet()");
 		
 		String nextView = RequestViewHelper.process(request);
-		System.out.println(nextView);
+		//System.out.println(nextView);
 		
 		request.getRequestDispatcher(nextView).forward(request, response);
 	}

@@ -21,14 +21,18 @@ public class UserService {
 		return userDAO.getUserByUsername(username);
 	}
 	
+	// Take in User as parameter, check email and password, 
 	public User addUser(User newUser) {
 		System.out.println("in addUser()");
+		
 		boolean emailAvailable = true;
 		boolean usernameAvailable = true;
+		
 		System.out.println("in addUser() past booleans" +" email boolean availability " + emailAvailable +" username boolean availability " + usernameAvailable);
+		
 		if(emailAvailable && usernameAvailable) {
-		newUser = userDAO.addUser(newUser);
-		for(User user : userDAO.getAllUsers()) System.out.println(user);
+			newUser = userDAO.addUser(newUser);		
+			//for(User user : userDAO.getAllUsers()) System.out.println(user);
 		}
 		else
 			newUser = null;
@@ -63,7 +67,7 @@ public class UserService {
 		if(u.getErs_username() == null) {
 			return true;
 		}else {
-		return false;
+			return false;
 		}
 	}
 	
@@ -82,9 +86,9 @@ public class UserService {
 	public User loginUser(String username, String password) {
 		System.out.println("Made it to loginUser");
 		User u = new User();
-		System.out.println(u.toString());
+		//System.out.println(u.toString());
 		u = userDAO.getUserByCredentials(username, password);
-		System.out.println(u.toString());
+		//System.out.println(u.toString());
 		return u;
 	}
 }

@@ -3,7 +3,7 @@ window.onload = function() {
 	document.getElementById('toLogin').addEventListener('click', loadLogin);
 	document.getElementById('toRegister').addEventListener('click', loadRegister);
 	document.getElementById('toHome').addEventListener('click', loadHome);
-	document.getElementById('toProfile').addEventListener('click', loadProfile);
+	//document.getElementById('toProfile').addEventListener('click', loadProfile);
 	document.getElementById('toLogout').addEventListener('click', logout);
 }
 
@@ -67,6 +67,7 @@ function login(){
 			console.log(user);
 			if (user) {
 				alert('load successful');
+				window.localStorage.setItem('user', xhr.responseText);
 				loadHome();
 				console.log(`user id: ${user.id} login successful`);
 			} else {
@@ -113,14 +114,33 @@ function loadHome() {
 function loadHomeInfo(){
 	console.log('in loadHomeInfo()');
 	
-	let authUser = window.localStorage.getItem('user');
+	let userType = JSON.parse(window.localStorage.getItem('user'));
+	/*
+	let ticket = {
+			id: '',
+			amount: '',
+			submitted: '',
+			resolved: '',
+			description: '',
+			receipt: '',
+			author: '',
+			resolver: '',
+			status_id: '',
+			type_id: ''
+			
+	}
 	
-	$("#user_id").html(user.id);
-	$("#user_fn").html(user.firstName);
-	$("#user_ln").html(user.lastName);
-	$("#user_email").html(user.emailAddress);
-	$("#user_username").html(user.username);
-	$("#user_password").html(user.password);
+	let ticketList = {
+			
+	}/**/
+	
+	// Check the active user's type and show only the appropriate table.
+	if (userType.user_type == 2){
+		$("#employee-view").hide();
+	} else {
+		$("#manager-view").hide();
+
+	}/**/
 }
 
 function loadProfile() {
@@ -149,8 +169,6 @@ function logout() {
 			loadLogin();
 		}
 	}
-	
-	loadHome();
 }
 
 function loadRegisterInfo() {
@@ -286,4 +304,47 @@ function register() {
 			}
 		}
 	}
+}
+
+function createTicket(){
+	let authUser = JSON.parse(window.localStorage.getItem('user'));
+	
+	let ticket = {
+		// Reminder: DB object has 9 fields
+		amount: $('#amount').val(),
+		desc: $('#description').val(),
+		auth: authUser.ers_users_id,
+		type: $('#type').val()
+	}/**/
+	console.log(ticket);
+	
+	let ticketJSON = JSON.stringify(ticket);
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', '/tickets', true);
+	console.log(ticketJSON);
+	xhr.send(ticketJSON);
+	
+	
+	// Does nothing yet, but needs to handle ReimbursementServlet response.
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			if(!xhr.responseText){
+				//$("#employee-table.body").html();
+				console.log(xhr.responseText);				
+			} else {
+				console.log(xhr.responseText);
+			}
+		} 
+	}
+}
+
+function approveTicket(){
+	let ticket = {
+			
+	}
+}
+
+function denyTicket(){
+	
 }
