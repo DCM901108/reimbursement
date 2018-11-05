@@ -10,7 +10,22 @@
 			<b>Password:</b> <span id="user_password"></span><br><br>
 			<b>TYPE:</b> <span id="user_type"></span><br><br>
 		</div>
-		
+		<tbody id="text-input">
+				<tr>
+				<th id="create"></th>
+				<td><input type="text" id="amount" placeholder="Ticket amount"></td>
+				<td><input type="text" id="description" placeholder="Description"></td>
+				<td>
+					<select id="type">
+						<option value="1">Lodging</option>
+						<option value="2">Travel</option>
+						<option value="3">Food</option>
+						<option value="4">Other</option>
+					</select>
+				</td>
+				<td><button type="button" class="btn btn-primary" onclick="createTicket()">Create</button></td>
+				</tr>
+			</tbody>
 		<hr>
 		
 		<table class="table" id="employee-view">
