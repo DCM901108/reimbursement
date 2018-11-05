@@ -158,18 +158,18 @@ public class ReimbDAOImpl implements ReimbDAO {
 	public Reimbursement addReimbursement(Reimbursement reimb) {
 		
 		Reimbursement newReimb = reimb;
+		//newReimb.setSubmitted(Java.DateTime.now());
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
 						
-			// Amount (double), date (string), description (string), author (int), type (int)
-			String sql = "{call add_ticket(?, ?, ?, ?, ?)}";
+			// Amount (double), description (string), author (int), type (int)
+			String sql = "{call add_ticket(?, ?, ?, ?)}";
 			
 			CallableStatement cstmt = conn.prepareCall(sql);
 			cstmt.setDouble(1, reimb.getAmount());
-			cstmt.setString(2, reimb.getSubmitted()); // Must be in 'yyyy:mm:dd hh:mi:ss' format.
-			cstmt.setString(3, reimb.getDescription());
-			cstmt.setInt(4, reimb.getAuthor());
-			cstmt.setInt(5, reimb.getType());
+			cstmt.setString(2, reimb.getDescription());
+			cstmt.setInt(3, reimb.getAuthor());
+			cstmt.setInt(4, reimb.getType());
 			
 			ResultSet rs = cstmt.executeQuery();
 			

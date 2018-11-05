@@ -15,9 +15,9 @@ public class ReimbService {
 	
 	public Reimbursement addReimbursement(Reimbursement updated) {
 		Reimbursement newReimb = new Reimbursement();	
-//		if (reimbDAO.addReimbursement(updated.getId()) == null) {
-//			newReimb = reimbDAO.addReimbursement(updated);
-//		}
+		if (reimbDAO.addReimbursement(updated) == null) {
+			newReimb = reimbDAO.addReimbursement(updated);
+		}
 		return newReimb;
 	}
 	
