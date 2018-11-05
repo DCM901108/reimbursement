@@ -160,32 +160,21 @@ public class ReimbDAOImpl implements ReimbDAO {
 	@Override
 	public Reimbursement addReimbursement(Reimbursement reimb) {
 		
-		Reimbursement newReimb = new Reimbursement();
+		Reimbursement newReimb = reimb;
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
+						
+			// Amount (double), date (string), description (string), author (int), type (int)
+			String sql = "{call add_ticket(?, ?, ?, ?, ?)}";
 			
-			String sql = "INSERT INTO ers_reimbursement (reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id) "
-					+ "VALUES (reimb_id, ?, reimb_submitted, reimb_resolved, ?, reimb_receipt, ?, reimb_resolver, reimb_status_id, ?);";
+			CallableStatement cstmt = conn.prepareCall(sql);
+			cstmt.setDouble(1, reimb.getAmount());
+			cstmt.setString(2, reimb.getSubmitted()); // Must be in 'yyyy:mm:dd hh:mi:ss' format.
+			cstmt.setString(3, reimb.getDescription());
+			cstmt.setInt(4, reimb.getAuthor());
+			cstmt.setInt(5, reimb.getType());
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-			// Sets amount, description, author, and type based on the parameter object.
-			pstmt.setDouble(1, reimb.getAmount());
-			pstmt.setString(2, reimb.getDescription());
-			pstmt.setInt(3, reimb.getAuthor());
-			pstmt.setInt(4, reimb.getType());
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				newReimb.getAmount();
-				newReimb.getDescription();
-				newReimb.getAuthor(); 		// This is where the enums come in
-				newReimb.getType();	
-				
-			}
-			
-			conn.commit();
+			ResultSet rs = cstmt.executeQuery();
 			
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
