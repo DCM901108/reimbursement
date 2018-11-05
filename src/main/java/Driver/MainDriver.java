@@ -2,14 +2,25 @@ package Driver;
 
 import java.util.ArrayList;
 
+import com.revature.dao.ReimbDAO;
+import com.revature.dao.ReimbDAOImpl;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
+import com.revature.models.Reimbursement;
 import com.revature.models.User;
 
 public class MainDriver {
 	public static void main(String[] args) {
 		System.out.println("hello you are in the tester");
-//	
+		
+		ReimbDAO iu = new ReimbDAOImpl();
+		ArrayList<Reimbursement> al = new ArrayList<>();
+		al = iu.getReimbursementsByAuthor(3);
+		System.out.println(al);
+				
+		
+		
+		
 //		UserDAO iu = new UserDAOImpl();
 //		User newUser = new User();
 //		

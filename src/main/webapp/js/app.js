@@ -6,6 +6,28 @@ window.onload = function() {
 	document.getElementById('toProfile').addEventListener('click', loadProfile);
 	document.getElementById('toLogout').addEventListener('click', logout);
 }
+
+function viewAll()
+{
+	console.log("in viewAll()")
+	
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open("GET", "viewallreimb", true);
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status ==200)
+			{
+				let a =xhr.responseText;
+				console.log(a);
+			}
+	}
+	
+}
+
 function isAuthenticated(){
 	
 }
@@ -13,8 +35,7 @@ function isAuthenticated(){
 function loadLogin() {
 	console.log('in loadLogin()');
 	
-	let xhr = new XMLHttpRequest();
-	
+	let xhr = new XMLHttpRequest();	
 	xhr.open('GET', 'login.view', true);
 	xhr.send();
 	
@@ -73,6 +94,8 @@ function loadRegister() {
 
 function loadHome() {
 	console.log('in loadHome()');
+	
+	viewAll();
 	
 	let xhr = new XMLHttpRequest();
 	
