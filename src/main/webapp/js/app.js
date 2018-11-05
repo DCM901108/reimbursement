@@ -6,6 +6,48 @@ window.onload = function() {
 	//document.getElementById('toProfile').addEventListener('click', loadProfile);
 	document.getElementById('toLogout').addEventListener('click', logout);
 }
+
+function viewAll()
+{
+	
+	console.log("in viewAll()")
+	
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open("GET", "viewallreimb", true);
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function()
+	{
+		if(xhr.readyState == 4 && xhr.status ==200)
+			{
+			a = JSON.parse(xhr.responseText);
+				for(let i = 0; i<a.length; i++)
+				{
+					console.log(a[i])
+					console.log(a.amount)
+					let r = "<tr>" +
+							"<td id='id'>" 			+ a[i].id + "</td>" +
+							"<td id='description'>" + a[i].description + "</td>" +
+							"<td id = 'amount'>" 	+ a[i].amount + "</td>" +
+							"<td id = 'resolver'>"	+ a[i].resolver + "</td>" +
+							"<td id = 'recipt'>" 	+ a[i].recipt + "</td>" +
+							"<td id = 'author' >"	+ a[i].author + "</td>" +
+							"<td id = 'type'>" 		+ a[i].type + "</td>" +
+							"<td id = 'submitted>" 	+ a[i].submitted + "</td>" +
+							"<td id = 'resolved'>" 	+ a[i].resolved + "</td>" +
+							"<td id = 'status'>" 	+ a[i].status + "</td>" +
+							"<td><button id='approve' type='button' class='btn btn-success'>"+"Approve"+"</button></td>" +
+							"<td><button type='deny' class='btn btn-danger'>" + "Deny" + "</button></td>" +
+							"</tr>"
+					
+					$('#manager-body').append(r);	
+				}
+			}
+	}
+}
+
 function isAuthenticated(){
 	
 }
@@ -13,8 +55,7 @@ function isAuthenticated(){
 function loadLogin() {
 	console.log('in loadLogin()');
 	
-	let xhr = new XMLHttpRequest();
-	
+	let xhr = new XMLHttpRequest();	
 	xhr.open('GET', 'login.view', true);
 	xhr.send();
 	
@@ -113,11 +154,64 @@ function loadHomeInfo(){
 	
 	// Check the active user's type and show only the appropriate table.
 	if (userType.user_type == 2){
-		$("#employee-view").hide();
+		//$("#employee-view").hide();
+		
 	} else {
-		$("#manager-view").hide();
-
+		//$("#manager-view").hide();
+		viewById(userType)
+		viewAll();
+		$(".table").on('click','tr',function(e){
+		    e.preventDefault();
+		    var id = $(this).children();
+		    console.log(id[1].innerHTML)
+		}); 
 	}/**/
+}
+
+
+function viewById(userType) 
+{
+	console.log("viewById()")
+	console.log(userType.ers_users_id)
+	let sender = userType.ers_users_id;
+	
+	
+	
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', "viewByAuthor", true)
+	
+	xhr.send(sender);
+	
+	xhr.onreadystatechange = function()
+	{
+		if (xhr.readyState == 4 && xhr.status == 200)
+		{
+			a = JSON.parse(xhr.responseText);
+			for(let i = 0; i<a.length; i++)
+			{
+				console.log(a[i])
+				console.log(a.amount)
+				let r = "<tr>" +
+							"<td id='id'>" + a[i].id + "</td>" +
+							"<td id='description'>" + a[i].description + "</td>" +
+							"<td id = 'amount'>" + a[i].amount + "</td>" +
+							"<td id = 'resolver'>" + a[i].resolver + "</td>" +
+							"<td id = 'recipt'>" + a[i].recipt + "</td>" +
+							"<td id = 'author' >" + a[i].author + "</td>" +
+							"<td id = 'type'>" + a[i].type + "</td>" +
+							"<td id = 'submitted>" + a[i].submitted + "</td>" +
+							"<td id = 'resolved'>" + a[i].resolved + "</td>" +
+							"<td id = 'status'>" + a[i].status + "</td>" +
+							"</tr>"
+				
+				$('#employee-body').append(r);	
+								
+			}
+				
+		}
+	}
+	
 }
 
 function loadProfile() {

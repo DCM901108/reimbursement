@@ -9,15 +9,15 @@ import com.revature.models.Reimbursement;
 public class ReimbService {
 	ReimbDAOImpl reimbDAO = new ReimbDAOImpl();
 	
-	public List<Reimbursement> getAllReimbursements(){
+	public ArrayList<Reimbursement> getAllReimbursements(){
 		return reimbDAO.getAllReimbursements();
 	}
 	
 	public Reimbursement addReimbursement(Reimbursement updated) {
 		Reimbursement newReimb = new Reimbursement();	
-		if (reimbDAO.getReimbursementById(updated.getId()) == null) {
-			newReimb = reimbDAO.addReimbursement(updated);
-		}
+//		if (reimbDAO.addReimbursement(updated.getId()) == null) {
+//			newReimb = reimbDAO.addReimbursement(updated);
+//		}
 		return newReimb;
 	}
 	
@@ -30,12 +30,14 @@ public class ReimbService {
 		}
 	}
 	
-	public List<Reimbursement> getReimbursementsByAuthor(int id) {
-		List<Reimbursement> tickets = new ArrayList<Reimbursement>();
-		
-		tickets = reimbDAO.getReimbursementsByAuthor(id);
-		
-		
+	public ArrayList<Reimbursement> getReimbursementsByAuthor(int id) {
+		ArrayList<Reimbursement> tickets = new ArrayList<Reimbursement>();
+		tickets = reimbDAO.getReimbursementsByAuthor(id);		
 		return tickets;
+	}
+
+	public ArrayList<Reimbursement> ViewAllReimb() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

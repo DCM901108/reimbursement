@@ -18,7 +18,8 @@ import oracle.jdbc.OracleTypes;
 public class ReimbDAOImpl implements ReimbDAO {
 	
 	@Override
-	public List<Reimbursement> getAllReimbursements(){
+	public ArrayList<Reimbursement> getAllReimbursements()
+	{
 		ArrayList<Reimbursement> tickets = new ArrayList<Reimbursement>();
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
@@ -29,7 +30,8 @@ public class ReimbDAOImpl implements ReimbDAO {
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next()) {
+			while(rs.next()) 
+			{
 				Reimbursement temp = new Reimbursement();
 				
 				temp.setId(rs.getInt("reimb_id"));
@@ -37,7 +39,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 				temp.setSubmitted(rs.getString("reimb_submitted"));
 				temp.setResolved(rs.getString("reimb_resolved"));
 				temp.setDescription(rs.getString("reimb_description"));
-				//temp.setReceipt(rs.getBLOB("reimb_receipt"));
+				temp.setReceipt(rs.getBlob("reimb_receipt"));
 				temp.setAuthor(rs.getInt("reimb_author"));
 				temp.setResolver(rs.getInt("reimb_resolver"));
 				temp.setStatus(rs.getInt("reimb_status_id"));
@@ -56,13 +58,13 @@ public class ReimbDAOImpl implements ReimbDAO {
 	}
 
 	@Override
-	public List<Reimbursement> getReimbursementsByAuthor(int id) {
+	public ArrayList<Reimbursement> getReimbursementsByAuthor(int id) {
 		
 		ArrayList<Reimbursement> tickets = new ArrayList<Reimbursement>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			
-			String sql = "SELECT * FROM ers_reimbursment WHERE reimb_author = ?";
+			String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author= ?";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -77,7 +79,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 				temp.setSubmitted(rs.getString("reimb_submitted"));
 				temp.setResolved(rs.getString("reimb_resolved"));
 				temp.setDescription(rs.getString("reimb_description"));
-				//temp.setReceipt(rs.getBLOB("reimb_receipt"));
+				temp.setReceipt(rs.getBlob("reimb_receipt"));
 				temp.setAuthor(rs.getInt("reimb_author"));
 				temp.setResolver(rs.getInt("reimb_resolver"));
 				temp.setStatus(rs.getInt("reimb_status_id"));
@@ -94,7 +96,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 	}
 
 	@Override // This will be useless without the corresponding SQL procedure
-	public List<Reimbursement> getReimbursementsByStatus(int status) {
+	public ArrayList<Reimbursement> getReimbursementsByStatus(int status) {
 		ArrayList<Reimbursement> tickets = new ArrayList<Reimbursement>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
@@ -129,11 +131,6 @@ public class ReimbDAOImpl implements ReimbDAO {
 		return tickets;
 	}
 
-	@Override
-	public boolean updateReimbursement(int id) {
-		// TODO Add update functionality here
-		return false;
-	}
 
 	@Override // Pretty sure this is enough.
 	public boolean deleteReimbursement(int id) {
@@ -184,25 +181,8 @@ public class ReimbDAOImpl implements ReimbDAO {
 	}
 
 	@Override
-	public Reimbursement getReimbursementById(int id) {
-		
-		Reimbursement newReimb = new Reimbursement();
-		
-		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
-			String sql = "SELECT * from ers_reimbursement WHERE reimb_id = ?";
-			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, id);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				newReimb = (Reimbursement) rs;
-			}
-			
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
-		return newReimb;
+	public boolean updateReimbursement(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
