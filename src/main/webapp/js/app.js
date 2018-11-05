@@ -163,7 +163,7 @@ function loadHomeInfo(){
 		$(".table").on('click','tr',function(e){
 		    e.preventDefault();
 		    var id = $(this).children();
-		    console.log(id[1].innerHTML)
+		    console.log(id[1].innerHTML4edx)
 		}); 
 	}/**/
 }
