@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Reimbursement;
 import com.revature.services.ReimbService;
 
-@WebServlet("/tickets")
+@WebServlet('/tickets')
 public class ReimbursementServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
