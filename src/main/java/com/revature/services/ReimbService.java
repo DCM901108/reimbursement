@@ -13,13 +13,13 @@ public class ReimbService {
 		return reimbDAO.getAllReimbursements();
 	}
 	
-	public Reimbursement addReimbursement(Reimbursement updated) {
-		Reimbursement newReimb = new Reimbursement();	
+//	public Reimbursement addReimbursement(Reimbursement updated) {
+//		Reimbursement newReimb = new Reimbursement();	
 //		if (reimbDAO.addReimbursement(updated.getId()) == null) {
 //			newReimb = reimbDAO.addReimbursement(updated);
 //		}
-		return newReimb;
-	}
+//		return newReimb;
+//	}
 	
 	public boolean deleteReimbursement(int id) {
 		boolean isDeleted = reimbDAO.deleteReimbursement(id);
