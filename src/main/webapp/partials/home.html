@@ -1,6 +1,7 @@
 <div class="container" id="home-container">
 	<div id="home-page">
-		<h1>Home</h1><br>
+		<h1 id="employee-view2">WELCOME "valued" Employee</h1><br>
+		<h1 id="manager-view3">DENY! DENY! DENY!</h1><br>
 		<div id="user-info" hidden="true">
 			<b>User ID:</b> <span id="user_id"></span><br><br>
 			<b>First name:</b> <span id="user_fn"></span><br><br>
@@ -10,21 +11,40 @@
 			<b>Password:</b> <span id="user_password"></span><br><br>
 			<b>TYPE:</b> <span id="user_type"></span><br><br>
 		</div>
-		<tbody id="text-input">
-				<tr>
-				<th id="create"></th>
-				<td><input type="text" id="amount" placeholder="Ticket amount"></td>
-				<td><input type="text" id="description" placeholder="Description"></td>
-				<td>
+
+		<div class="container" id="register-container">
+			<form class="form" id="registration-form">
+				<div class="form-group">
+					<label for="amount">Amount</label> 
+					<input type="text" id="amount" placeholder="Amount">
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label> 
+					<input type="text" id="description" placeholder="Description">
+				</div>
+				<div class="form-group">
+					<label for="type">type</label> 
 					<select id="type">
 						<option value="1">Lodging</option>
 						<option value="2">Travel</option>
 						<option value="3">Food</option>
 						<option value="4">Other</option>
 					</select>
-				</td>
-				<td><button type="button" class="btn btn-primary" onclick="createTicket()">Create</button></td>
-				</tr>
+				</div>
+			</form>
+		</div>
+		
+		<div>
+		<input type="text" hidden = 'true' id="id" placeholder="Description">
+		<input type="text" hidden = 'true' id="status" placeholder="Description">
+		</div>
+
+		<button type="button" id="employee-view1" class="btn btn-primary float-left" onclick="createTicket()">Create</button>
+		<button type="button" id="manager-view1" class="btn btn-success float-right" onclick="updateStatus(2)">APPROVE</button>
+		<button type="button" id="manager-view2" class="btn btn-danger float-right" onclick="updateStatus(3)">DENY</button>
+			
+
+				
 			</tbody>
 		<hr>
 		
@@ -32,11 +52,12 @@
 			
 			<thead>
 				<tr>
-					<th scope="col">#</th>
+					<th scope="col">Description</th>
 					<th scope="col">Amount</th>
-					<th scope="col">Author</th>
-					<th scope="col">Status</th>
 					<th scope="col">Type</th>
+					<th scope="col">Date Submitted</th>
+					<th scope="col">Date Resolved</th>
+					<th scope="col">Status</th>
 				</tr>
 
 			</thead>
@@ -51,18 +72,17 @@
 			
 			<thead>
 				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Id</th>
+					<th scope="col">Description</th>
 					<th scope="col">Amount</th>
-					<th scope="col">Author</th>
-					<th scope="col">Status</th>
 					<th scope="col">Type</th>
+					<th scope="col">Date Submitted</th>
+					<th scope="col">Date Resolved</th>
+					<th scope="col">Status</th>
 				</tr>
 			</thead>
 			
 			<tbody id='manager-body'>
 				<tr>
-					<th scope="row">1</th>
 
 				</tr>
 			</tbody>

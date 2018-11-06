@@ -1,9 +1,5 @@
 window.onload = function() {
 	loadLogin();
-	document.getElementById('toLogin').addEventListener('click', loadLogin);
-	document.getElementById('toRegister').addEventListener('click', loadRegister);
-	document.getElementById('toHome').addEventListener('click', loadHome);
-	//document.getElementById('toProfile').addEventListener('click', loadProfile);
 	document.getElementById('toLogout').addEventListener('click', logout);
 }
 
@@ -23,24 +19,55 @@ function viewAll()
 		if(xhr.readyState == 4 && xhr.status ==200)
 			{
 			a = JSON.parse(xhr.responseText);
+
 				for(let i = 0; i<a.length; i++)
 				{
+					let pending
+					let type
+					if( a[i].type ==1 )
+					{
+						type = "Lodging"
+					}
+					if( a[i].type ==2 )
+					{
+						type = "Travel"
+					}
+					if( a[i].type ==3 )
+					{
+						type = "Food"
+					}
+					if( a[i].type ==4 )
+					{
+						type = "Other"
+					}
+					
+					if( a[i].status == 1 )
+					{
+						pending = "Pending"
+					}if( a[i].status == 2 )
+					{
+						pending = "Approved"
+					}if( a[i].status == 3 )
+					{
+						pending = "DENIED"
+					}
+					
+					
+					//console.log( a[i].resolved)
 					console.log(a[i])
-					console.log(a.amount)
-					let r = "<tr>" +
-							"<td id='id'>" 			+ a[i].id + "</td>" +
-							"<td id='description'>" + a[i].description + "</td>" +
-							"<td id = 'amount'>" 	+ a[i].amount + "</td>" +
-							"<td id = 'resolver'>"	+ a[i].resolver + "</td>" +
-							"<td id = 'recipt'>" 	+ a[i].recipt + "</td>" +
-							"<td id = 'author' >"	+ a[i].author + "</td>" +
-							"<td id = 'type'>" 		+ a[i].type + "</td>" +
-							"<td id = 'submitted>" 	+ a[i].submitted + "</td>" +
-							"<td id = 'resolved'>" 	+ a[i].resolved + "</td>" +
-							"<td id = 'status'>" 	+ a[i].status + "</td>" +
-							"<td><button id='approve' type='button' class='btn btn-success'>"+"Approve"+"</button></td>" +
-							"<td><button type='deny' class='btn btn-danger'>" + "Deny" + "</button></td>" +
-							"</tr>"
+					let r = 
+					"<tr>" +
+						"<td id='id' hidden = 'true'>"						+ a[i].id + "</td>" +
+								"<td id='description'>" 					+ a[i].description + "</td>" +
+								"<td id = 'amount'>" 						+ a[i].amount + "</td>" +
+								"<td id = 'resolver' hidden = 'true'>" 		+ a[i].resolver + "</td>" +
+								"<td id = 'recipt' hidden = 'true'>" 		+ a[i].recipt + "</td>" +
+								"<td id = 'author' hidden = 'true'>" 		+ a[i].author + "</td>" +
+								"<td id = 'type' value = a[i].type>" 		+ type + "</td>" +
+								"<td id = 'submitted'>" 					+ a[i].submitted + "</td>" +
+								"<td id = 'resolved'>" 						+ (a[i].resolved? a[i].resolved: "Not Resolved") + "</td>" +
+								"<td id = 'status' value = a[i].status >" + pending + "</td>" +
+					"</tr>"
 					
 					$('#manager-body').append(r);	
 				}
@@ -129,7 +156,7 @@ function loadHome() {
 	}
 }
 
-function loadHomeInfo(){
+function loadHomeInfo(){ 
 	console.log('in loadHomeInfo()');
 	
 	let userType = JSON.parse(window.localStorage.getItem('user'));
@@ -152,22 +179,55 @@ function loadHomeInfo(){
 			
 	}/**/
 	
+	console.log*(userType.user_type) ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	// Check the active user's type and show only the appropriate table.
 	if (userType.user_type == 2){
-		//$("#employee-view").hide();
-		
-	} else {
-		//$("#manager-view").hide();
-		viewById(userType)
+		$("#employee-view").hide();
+		$("#employee-view1").hide();
+		$("#employee-view2").hide();
+		$("#amount").prop('disabled', true);
+		$("#description").prop('disabled', true);
+		$("#type").prop('disabled', true);
 		viewAll();
 		$(".table").on('click','tr',function(e){
 		    e.preventDefault();
 		    var id = $(this).children();
-		    console.log(id[1].innerHTML)
+		    console.log(id)
+		    $("#amount").val(id[2].innerHTML);
+		    $("#description").val(id[1].innerHTML);
+		    $("#id").val(id[0].innerHTML);
+		    $("#status").val(id[9].innerHTML);
+		    let type
+		    if(id[6].innerHTML == "Lodging" )
+			{
+				type = 1
+			}
+		    if(id[6].innerHTML == "Travel" )
+			{
+				type = 2
+			}
+		    if(id[6].innerHTML == "Food" )
+			{
+				type = 3
+			}
+		    if(id[6].innerHTML == "Other" )
+			{
+				type = 4
+			}
+		    $("#type").val(type);
 		}); 
+	} else {
+		$("#manager-view").hide();
+		$("#manager-view1").hide();
+		$("#manager-view2").hide();
+		$("#manager-view3").hide();
+		viewById(userType)
+		
+		
 	}/**/
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function viewById(userType) 
 {
@@ -190,20 +250,52 @@ function viewById(userType)
 			a = JSON.parse(xhr.responseText);
 			for(let i = 0; i<a.length; i++)
 			{
+				let pending
+				let type
+				if( a[i].type ==1 )
+				{
+					type = "Lodging"
+				}
+				if( a[i].type ==2 )
+				{
+					type = "Travel"
+				}
+				if( a[i].type ==3 )
+				{
+					type = "Food"
+				}
+				if( a[i].type ==4 )
+				{
+					type = "Other"
+				}
+				
+				if( a[i].status == 1 )
+				{
+					pending = "Pending"
+				}if( a[i].status == 2 )
+				{
+					pending = "Approved"
+				}if( a[i].status == 3 )
+				{
+					pending = "DENIED"
+				}
+				
+				
+				//console.log( a[i].resolved)
 				console.log(a[i])
-				console.log(a.amount)
-				let r = "<tr>" +
-							"<td id='id'>" + a[i].id + "</td>" +
-							"<td id='description'>" + a[i].description + "</td>" +
-							"<td id = 'amount'>" + a[i].amount + "</td>" +
-							"<td id = 'resolver'>" + a[i].resolver + "</td>" +
-							"<td id = 'recipt'>" + a[i].recipt + "</td>" +
-							"<td id = 'author' >" + a[i].author + "</td>" +
-							"<td id = 'type'>" + a[i].type + "</td>" +
-							"<td id = 'submitted>" + a[i].submitted + "</td>" +
-							"<td id = 'resolved'>" + a[i].resolved + "</td>" +
-							"<td id = 'status'>" + a[i].status + "</td>" +
-							"</tr>"
+				let r = 
+				"<tr>" +
+					"<td id='id' hidden = 'true'>"						+ a[i].id + "</td>" +
+							"<td id='description'>" 					+ a[i].description + "</td>" +
+							"<td id = 'amount'>" 						+ a[i].amount + "</td>" +
+							"<td id = 'resolver' hidden = 'true'>" 		+ a[i].resolver + "</td>" +
+							"<td id = 'recipt' hidden = 'true'>" 		+ a[i].recipt + "</td>" +
+							"<td id = 'author' hidden = 'true'>" 		+ a[i].author + "</td>" +
+							"<td id = 'type' value = a[i].type >" 		+ type + "</td>" +
+							"<td id = 'submitted'>" 					+ a[i].submitted + "</td>" +
+							"<td id = 'resolved'>" 						+ (a[i].resolved? a[i].resolved: "Not Resolved") + "</td>" +
+							"<td id = 'status' value = a[i].status >" + pending + "</td>" +
+				"</tr>"
 				
 				$('#employee-body').append(r);	
 								
@@ -380,6 +472,23 @@ function register() {
 function createTicket(){
 	let authUser = JSON.parse(window.localStorage.getItem('user'));
 	
+	console.log($('#type').val())
+	if($('#amount').val() == "")
+	{
+		alert("PLEASE SET AN AMOUNT")
+		return
+	}
+	if($('#description').val() == "")
+	{
+		alert("PLEASE SET A DESCRIPTION")
+		return
+	}
+	if($('#type').val() == null)
+	{
+		alert("PLEASE SET A TYPE")
+		return
+	}
+	
 	let ticket = {
 		// Reminder: DB object has 9 fields
 		amount: $('#amount').val(),
@@ -405,19 +514,40 @@ function createTicket(){
 				console.log(xhr.responseText);		
 			} else {
 				
-				console.log("Update successful!");
+				console.log("createTicket successful!");
 				console.log(xhr.responseText);
 			}
 		} 
 	}
 }
 
-function approveTicket(){
-	let ticket = {
-			
+function updateStatus(x){
+	if($("#id").val()==''||$("#id").val()=='amount')
+	{
+		alert('SELECT A USER BY CLICKING')
+		return
 	}
-}
-
-function denyTicket(){
+	let authUser = JSON.parse(window.localStorage.getItem('user'));
+	//int id, int resolver, int status
+	let id = $("#id").val()
+	let resolver = authUser.ers_users_id
+	let status = x
+	let credentials = [id,resolver,status]
+	console.log(credentials)
+	let credentialsJSON = JSON.stringify(credentials);
 	
+	let xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', 'ReibUpdateServlet', true)
+	
+	xhr.send(credentialsJSON);
+	
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			let user = JSON.parse(xhr.responseText);
+			console.log(user);
+			alert("IT HAS BEEN DONE")
+		}
+	}
+
 }

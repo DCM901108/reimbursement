@@ -24,7 +24,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 		
 		try (Connection conn = ConnectionFactory.getInstance().getConnection();){
 			
-			String sql = "SELECT * FROM ers_reimbursement";
+			String sql = "SELECT * FROM ers_reimbursement ORDER BY reimb_type_id";
 			
 			Statement stmt = conn.createStatement();
 			

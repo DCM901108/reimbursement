@@ -30,19 +30,14 @@ public class ConnectionFactory {
 		
 		try
 		{
-			//System.out.println(getClass().getResource(""));
-			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			prop.load(new FileReader("E:\\Git Repos\\ReimbursementApp\\src\\main\\resources\\app.properties"));		
-			//URL fileLoc = getClass().getResource ("/app.properties");
-
-			/*			
+						
+			URL fileLoc = getClass().getResource ("/app.properties");
+						
 			System.out.println(fileLoc);
 				        
-			prop.load(new FileReader(fileLoc.getFile()));
-			/**/
-						
-			//prop.load(new FileReader("src/main/resources/app.properties"));
+			prop.load(new FileReader(fileLoc.getFile()));/**/
+
 				
 			conn = DriverManager.getConnection(
 					prop.getProperty("url"),

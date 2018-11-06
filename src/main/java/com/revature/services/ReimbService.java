@@ -35,6 +35,14 @@ public class ReimbService {
 		tickets = reimbDAO.getReimbursementsByAuthor(id);		
 		return tickets;
 	}
+	public boolean updateReimbursment(int a, int b, int c) {
+		boolean isUpdated = reimbDAO.updateReimbursement(a, b, c);
+		if (isUpdated){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public ArrayList<Reimbursement> ViewAllReimb() {
 		// TODO Auto-generated method stub

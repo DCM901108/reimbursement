@@ -40,23 +40,18 @@ public class UserService {
 		return newUser;
 	}
 	
-//	public User updateUser(User updatedUser) {
-//		
-//		List<User> users = userDAO.getAllUsers();
-//		
-//		for(User user : users)
-//			if(updatedUser.getErs_users_id() == user.getErs_users_id())
-//				return userDAO.updateUser(updatedUser);
-//		
-//		return null;
-//		
-//	}
+	public boolean updateUser(User updatedUser) {
+		
+		
+		return false;
+		
+	}
 	
 	public boolean deleteUser(int userId) {
 		return  false;
 	}
 	
-	@SuppressWarnings("unused")
+	
 	public boolean isEmailAvailable(String emailAddress) {
 		System.out.println("it is currently here  in  for email ");
 		
@@ -71,7 +66,7 @@ public class UserService {
 		}
 	}
 	
-	@SuppressWarnings("unused")
+	
 	public boolean isUsernameAvailable(String username) {
 		System.out.println("it is currently here  in service " + username);
 		User u = userDAO.getUserByUsername(username);
