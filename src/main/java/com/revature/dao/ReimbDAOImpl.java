@@ -155,7 +155,7 @@ public class ReimbDAOImpl implements ReimbDAO {
 	}
 
 	@Override
-	public Reimbursement addReimbursement(Reimbursement reimb) {
+	public boolean addReimbursement(Reimbursement reimb) {
 		
 		Reimbursement newReimb = reimb;
 		//newReimb.setSubmitted(Java.DateTime.now());
@@ -173,11 +173,12 @@ public class ReimbDAOImpl implements ReimbDAO {
 			
 			ResultSet rs = cstmt.executeQuery();
 			
+			return true;
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
 		
-		return newReimb;
+		return false;
 	}
 
 	@Override

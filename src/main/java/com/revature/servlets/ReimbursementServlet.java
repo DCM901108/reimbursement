@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Reimbursement;
 import com.revature.services.ReimbService;
 
+@WebServlet("/reimbursementservlet")
 public class ReimbursementServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,11 +26,11 @@ public class ReimbursementServlet extends HttpServlet {
 		
 		Reimbursement newTicket = mapper.readValue(request.getInputStream(), Reimbursement.class);
 		
-		newTicket = reimbService.addReimbursement(newTicket);
+		boolean ticketAdded = reimbService.addReimbursement(newTicket);
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("application/json");
-		String ticketJSON = mapper.writeValueAsString(newTicket);
-		pw.write(ticketJSON);
+		String boolJSON = mapper.writeValueAsString(ticketAdded);
+		pw.write(boolJSON);
 	}
 }

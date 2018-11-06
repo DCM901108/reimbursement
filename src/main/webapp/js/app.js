@@ -383,8 +383,8 @@ function createTicket(){
 	let ticket = {
 		// Reminder: DB object has 9 fields
 		amount: $('#amount').val(),
-		desc: $('#description').val(),
-		auth: authUser.ers_users_id,
+		description: $('#description').val(),
+		author: authUser.ers_users_id,
 		type: $('#type').val()
 	}/**/
 	console.log(ticket);
@@ -392,7 +392,7 @@ function createTicket(){
 	let ticketJSON = JSON.stringify(ticket);
 	let xhr = new XMLHttpRequest();
 	
-	xhr.open('POST', '/tickets', true);
+	xhr.open('POST', 'reimbursementservlet', true);
 	console.log(ticketJSON);
 	xhr.send(ticketJSON);
 	
@@ -401,9 +401,11 @@ function createTicket(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			if(!xhr.responseText){
-				//$("#employee-table.body").html();
-				console.log(xhr.responseText);				
+				console.log("We've encountered  an error...");		
+				console.log(xhr.responseText);		
 			} else {
+				
+				console.log("Update successful!");
 				console.log(xhr.responseText);
 			}
 		} 
