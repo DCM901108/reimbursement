@@ -181,8 +181,24 @@ public class ReimbDAOImpl implements ReimbDAO {
 	}
 
 	@Override
-	public boolean updateReimbursement(int id) {
-		// TODO Auto-generated method stub
+	public boolean updateReimbursement(int id, int status) {
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
+			
+			String sql = "{call update_status(?, ?)}";
+			
+			CallableStatement cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, id);
+			cstmt.setInt(2, status);
+			
+			cstmt.executeQuery();
+						
+			return true;
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
 		return false;
 	}
 }
