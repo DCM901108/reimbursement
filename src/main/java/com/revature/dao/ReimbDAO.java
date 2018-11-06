@@ -9,7 +9,7 @@ public interface ReimbDAO {
 	ArrayList<Reimbursement> getAllReimbursements();
 	ArrayList<Reimbursement> getReimbursementsByAuthor(int id);
 	ArrayList<Reimbursement> getReimbursementsByStatus(int status);
-	boolean updateReimbursement(int id, int status);
+	boolean updateReimbursement(int id, int resolver, int status);
 	boolean deleteReimbursement(int id);
 	boolean addReimbursement(Reimbursement reimb);
 }
