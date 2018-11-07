@@ -106,6 +106,7 @@ function login(){
 	let xhr = new XMLHttpRequest();
 	
 	xhr.open('POST', 'login', true);
+	console.log(JSON.parse(credentialsJSON));
 	xhr.send(credentialsJSON);
 	
 	xhr.onreadystatechange = function() {
@@ -160,26 +161,8 @@ function loadHomeInfo(){
 	console.log('in loadHomeInfo()');
 	
 	let userType = JSON.parse(window.localStorage.getItem('user'));
-	/*
-	let ticket = {
-			id: '',
-			amount: '',
-			submitted: '',
-			resolved: '',
-			description: '',
-			receipt: '',
-			author: '',
-			resolver: '',
-			status_id: '',
-			type_id: ''
-			
-	}
 	
-	let ticketList = {
-			
-	}/**/
-	
-	console.log*(userType.user_type) ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	console.log*(userType.user_type)
 	
 	// Check the active user's type and show only the appropriate table.
 	if (userType.user_type == 2){
@@ -234,8 +217,6 @@ function viewById(userType)
 	console.log("viewById()")
 	console.log(userType.ers_users_id)
 	let sender = userType.ers_users_id;
-	
-	
 	
 	let xhr = new XMLHttpRequest();
 	
@@ -297,13 +278,11 @@ function viewById(userType)
 							"<td id = 'status' value = a[i].status >" + pending + "</td>" +
 				"</tr>"
 				
-				$('#employee-body').append(r);	
-								
+				$('#employee-body').append(r);
+				//loadHomeInfo();			
 			}
-				
 		}
 	}
-	
 }
 
 function loadProfile() {
@@ -519,6 +498,7 @@ function createTicket(){
 			}
 		} 
 	}
+	//loadHomeInfo();
 }
 
 function updateStatus(x){
@@ -538,7 +518,7 @@ function updateStatus(x){
 	
 	let xhr = new XMLHttpRequest();
 	
-	xhr.open('POST', 'ReibUpdateServlet', true)
+	xhr.open('POST', 'ReimbUpdateServlet', true)
 	
 	xhr.send(credentialsJSON);
 	
@@ -547,6 +527,7 @@ function updateStatus(x){
 			let user = JSON.parse(xhr.responseText);
 			console.log(user);
 			alert("IT HAS BEEN DONE")
+			//loadHomeInfo();
 		}
 	}
 
